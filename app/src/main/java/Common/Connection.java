@@ -211,7 +211,7 @@ public class Connection extends SQLiteOpenHelper {
         builder.setMessage(Msg)
                 .setTitle("Message")
                 .setCancelable(true)
-                //.setIcon(R.drawable.logo)
+                //.setIcon(R.drawable.logo_icddrb)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton("Ok", null);
         builder.show();

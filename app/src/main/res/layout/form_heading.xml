@@ -23,7 +23,7 @@
             android:paddingLeft="10px"
             android:paddingRight="10px"
             android:scaleType="center"
-            android:src="@drawable/logo"
+            android:src="@drawable/logo_icddrb"
             android:text="@string/app_name"
             android:textColor="@color/login_page_text_color"
             android:textSize="30sp" />

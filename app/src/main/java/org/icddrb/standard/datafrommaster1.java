@@ -17,17 +17,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import Common.Connection;
@@ -354,7 +351,7 @@ public class datafrommaster1 extends AppCompatActivity {
         linearLayout_921.setLayoutParams(layout_721);
 
         ImageView img = new ImageView(this);
-        img.setImageResource(R.drawable.logo);
+        img.setImageResource(R.drawable.logo_icddrb);
         LinearLayout.LayoutParams layout_777 = new LinearLayout.LayoutParams(0, 0);
         layout_777.width = LinearLayout.LayoutParams.MATCH_PARENT;
         layout_777.height = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -543,7 +540,7 @@ public class datafrommaster1 extends AppCompatActivity {
         LinearLayout.LayoutParams layout_188 = new LinearLayout.LayoutParams(0, 0);
         layout_188.width = LinearLayout.LayoutParams.WRAP_CONTENT;
         layout_188.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        img_445.setImageResource(R.drawable.logo);
+        img_445.setImageResource(R.drawable.logo_icddrb);
         img_445.setLayoutParams(layout_188);
         img_445.setId(generateViewId());
 

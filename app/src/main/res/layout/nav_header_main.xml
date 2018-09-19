@@ -6,8 +6,7 @@
     android:background="@color/navigationBar"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/nav_header_top_spacing"
-    android:paddingTop="@dimen/nav_header_top_spacing"
+
     android:paddingLeft="20sp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
@@ -15,7 +14,7 @@
         android:id="@+id/imageView"
         android:layout_width="70sp"
         android:layout_height="70sp"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/logo_icddrb" />
 
     <TextView
         android:layout_width="match_parent"
