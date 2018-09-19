@@ -1082,7 +1082,8 @@ public class Connection extends SQLiteOpenHelper {
         try {
             //Remove data from Sync_Management
             //--------------------------------------------------------------------------------------
-            ExecuteCommandOnServer("Delete from Sync_Management where UserId='" + DeviceID + "'");
+            //ExecuteCommandOnServer("Delete from Sync_Management where UserId='" + DeviceID + "'");
+            ExecuteCommandOnServer("SELECT 1 WHILE @@ROWCOUNT > 0 BEGIN DELETE TOP (10000) FROM Sync_Management where UserId='" + DeviceID + "' END");
 
             progHandler.post(new Runnable() {
                 public void run() {
