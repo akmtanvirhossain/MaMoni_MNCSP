@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -163,8 +164,8 @@ public class MainActivity extends AppCompatActivity
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder
                                 .setTitle("Data Sync")
+                                .setIcon(R.drawable.data_sync)
                                 .setMessage("Do you want to synchronize data to server[Y/N]?")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which){
@@ -224,8 +225,8 @@ public class MainActivity extends AppCompatActivity
                         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                         builder
                                 .setTitle("Exit")
+                                .setIcon(R.drawable.exit)
                                 .setMessage("Do you want to exit from the system[Y/N]?")
-                                .setIcon(android.R.drawable.ic_dialog_alert)
                                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which){
@@ -300,11 +301,32 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_DataSync) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder
+                    .setTitle("Data Sync")
+                    .setIcon(R.drawable.data_sync)
+                    .setMessage("Do you want to sync data to server[Y/N]?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
 
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    })
+                    .setNegativeButton("No", null)	//Do nothing on no
+                    .show();
         } else if (id == R.id.nav_Exit) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder
                     .setTitle("Exit")
+                    .setIcon(R.drawable.exit)
                     .setMessage("Do you want to exit from the system[Y/N]?")
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -385,11 +407,11 @@ public class MainActivity extends AppCompatActivity
 
         //references to our images
         private Integer[] mThumbIds = {
-                R.drawable.ic_action_new,
-                R.drawable.planning,
-                R.drawable.ic_action_search,
-                R.drawable.sync,
-                R.drawable.exit1
+                R.drawable.new_entry,
+                R.drawable.reports,
+                R.drawable.data_search,
+                R.drawable.data_sync,
+                R.drawable.exit
         };
     }
 

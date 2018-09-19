@@ -6,9 +6,11 @@
     android:background="@color/navigationBar"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/nav_header_top_spacing"
+    android:paddingBottom="@dimen/nav_header_borttom_spacing"
+    android:layout_marginTop="33dp"
     android:paddingTop="@dimen/nav_header_top_spacing"
     android:paddingLeft="20sp"
+    android:layout_marginLeft="8dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView android:visibility="gone"

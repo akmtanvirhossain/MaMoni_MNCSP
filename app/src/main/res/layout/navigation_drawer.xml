@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scaleType="fitStart"
-                android:src="@drawable/seaplogo_small"/>
+                android:src="@drawable/logo_icddrb"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="70dp" >

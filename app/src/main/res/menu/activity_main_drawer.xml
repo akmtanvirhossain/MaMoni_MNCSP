@@ -3,12 +3,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_DataSync"
-            android:icon="@drawable/sync"
+            android:icon="@drawable/data_sync"
             android:title="Data Sync" />
 
         <item
             android:id="@+id/nav_Exit"
-            android:icon="@drawable/exit1"
+            android:icon="@drawable/exit"
             android:title="Exit" />
     </group>
 
