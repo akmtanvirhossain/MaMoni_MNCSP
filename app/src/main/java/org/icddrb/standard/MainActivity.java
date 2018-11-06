@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
 
                     //Data Sync
                     //*******************************************************************************
-                    /*else if(position==3)
+                    else if(position==3)
                     {
                         if (Connection.haveNetworkConnection(MainActivity.this)) {
                             netwoekAvailable=true;
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity
                                 })
                                 .setNegativeButton("No", null)	//Do nothing on no
                                 .show();
-                    }*/
-                    else if(position==3)
+                    }
+                    /*else if(position==3)
                     {
                         if (Connection.haveNetworkConnection(MainActivity.this)) {
                             netwoekAvailable=true;
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity
                                 })
                                 .setNegativeButton("No", null)	//Do nothing on no
                                 .show();
-                    }
+                    }*/
 
                     //Exit from the system
                     //*******************************************************************************
