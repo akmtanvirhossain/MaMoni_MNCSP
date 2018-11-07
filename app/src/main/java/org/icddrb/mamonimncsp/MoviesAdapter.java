@@ -1,4 +1,4 @@
-package org.icddrb.standard;
+package org.icddrb.mamonimncsp;
 
 /**
  * Created by thossain on 05/03/2017.

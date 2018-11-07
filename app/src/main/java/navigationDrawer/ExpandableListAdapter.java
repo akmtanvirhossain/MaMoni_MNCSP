@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
-import org.icddrb.standard.*;
+import org.icddrb.mamonimncsp.*;
 
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.icddrb.standard">
+    package="org.icddrb.mamonimncsp">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -27,10 +27,10 @@
         android:supportsRtl="true"
         android:theme="@style/CustomTheme">
         <activity
-            android:name=".SettingForm"
+            android:name="org.icddrb.mamonimncsp.SettingForm"
             android:label="Device Setting" />
         <activity
-            android:name=".MainMenu"
+            android:name="org.icddrb.mamonimncsp.MainMenu"
             android:label="Main Menu" />
         <activity
             android:name="navigationDrawer.NavigationActivity"
@@ -39,7 +39,7 @@
         //Android Manifest Code
 
 
-        <activity android:name=".Splash_Screen" android:label="@string/app_name" android:theme="@style/CustomTheme">
+        <activity android:name="org.icddrb.mamonimncsp.Splash_Screen" android:label="@string/app_name" android:theme="@style/CustomTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,16 +47,16 @@
         </activity>
 
         //Activity
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RecycleActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".data_form_master" />
+        <activity android:name="org.icddrb.mamonimncsp.LoginActivity" />
+        <activity android:name="org.icddrb.mamonimncsp.RecycleActivity" />
+        <activity android:name="org.icddrb.mamonimncsp.MainActivity" />
+        <activity android:name="org.icddrb.mamonimncsp.data_form_master" />
         <activity android:name=".test2"/>
 
 
         //Service
-        <service android:name=".DataSyncService" />
-        <service android:name=".Sync_Service" />
+        <service android:name="org.icddrb.mamonimncsp.DataSyncService" />
+        <service android:name="org.icddrb.mamonimncsp.Sync_Service" />
 
     </application>
 </manifest>

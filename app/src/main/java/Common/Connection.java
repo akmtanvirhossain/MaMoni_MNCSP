@@ -19,7 +19,7 @@ import android.widget.ArrayAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 //import org.icddrb.standard.R;
-import org.icddrb.standard.R;
+import org.icddrb.mamonimncsp.R;
 
 import java.io.File;
 import java.lang.reflect.Type;

@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="org.icddrb.standard.dynamic_form"
+    tools:context="org.icddrb.mamonimncsp.dynamic_form"
     tools:showIn="@layout/activity_dynamic_form">
 </android.support.constraint.ConstraintLayout>

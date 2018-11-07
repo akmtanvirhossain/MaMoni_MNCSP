@@ -1,22 +1,13 @@
-package org.icddrb.standard;
+package org.icddrb.mamonimncsp;
 
-import android.Manifest;
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import net.sqlcipher.database.SQLiteDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,9 +28,12 @@ import java.net.URL;
 import Common.Connection;
 import Common.Global;
 import Common.ProjectSetting;
+import Common.Security_Permission;
 import Utility.MySharedPreferences;
 
-public class LoginActivity extends AppCompatActivity {
+//import Common.Connection_Sakib;
+
+public class LoginActivity_07112018 extends Activity {
     public static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     Connection C;
     Global g;
@@ -48,103 +44,48 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog dialog;
     private  String Password="";
     MySharedPreferences sp;
-    TextView Country;
-    TextView Facility;
-    EditText pass;
-
-    public static final String SECURITY_TAG = "Security Permission";
-    private static final int REQUEST_Code = 0;
-    private static String[] PERMISSIONS_LIST = {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.CAMERA};
-
-    private void checkPermission()
-    {
-        Log.e(SECURITY_TAG,"Checking Permission.");
-        if (
-                (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) &
-                        (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) &
-                        (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
-                ) {
-            Log.e(SECURITY_TAG,"Calling Requesting Permission!!!");
-            requestPermission();
-        } else {
-            Log.e(SECURITY_TAG,"Your permission has already been granted.");
-
-            Activity_Load();
-        }
-    }
-
-    private void requestPermission() {
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
-            Log.e(SECURITY_TAG,"Requesting Permission to User.");
-            ActivityCompat.requestPermissions(this,PERMISSIONS_LIST,REQUEST_Code);
-        } else {
-            Log.e(SECURITY_TAG,"Requesting Permission Directly.");
-            ActivityCompat.requestPermissions(this,PERMISSIONS_LIST,REQUEST_Code);
-        }
-    }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        if (grantResults.length == PERMISSIONS_LIST.length && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            //********* Granted ********
-            Activity_Load();
-        } else {
-            //********* Not Granted ********
-            ActivityCompat.requestPermissions(this,PERMISSIONS_LIST,REQUEST_Code);
-        }
-    }
-
-    @Override
-    public boolean onKeyDown(int iKeyCode, KeyEvent event) {
-        if (iKeyCode == KeyEvent.KEYCODE_BACK || iKeyCode == KeyEvent.KEYCODE_HOME) {
-            AlertDialog.Builder adb = new AlertDialog.Builder(LoginActivity.this);
-            adb.setTitle("Close");
-            adb.setMessage("Do you want to exist from the system?");
-            adb.setNegativeButton("No", null);
-            adb.setPositiveButton("Yes", new AlertDialog.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            adb.show();
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    private void Activity_Load(){
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         try
         {
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setContentView(R.layout.login_activity);
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            Security_Permission my_permission = new Security_Permission(getApplicationContext(),LoginActivity_07112018.this);
+
+            SQLiteDatabase.loadLibs(this);
+
             C = new Connection(this);
             g = Global.getInstance();
             sp = new MySharedPreferences();
             sp.save(this,"deviceid","");
             sp.save(this,"userid","");
 
+            //Stat_Funcation stat = new Stat_Funcation();
+            //stat.get_z_score(null);
+
             final TextView UniqueUserId      = (TextView)findViewById(R.id.UniqueUserId);
             final Spinner uid      = (Spinner)findViewById(R.id.userId);
             final EditText pass    = (EditText)findViewById(R.id.pass);
             TextView lblSystemDate = (TextView)findViewById(R.id.lblSystemDate);
 
+            //Need to update date every time whenever shared updated system
+            //*********************************************************************
             SystemUpdateDT = ProjectSetting.VersionDate;
-            lblSystemDate.setText("Version: 1.0, Built on: "+ SystemUpdateDT);
+            lblSystemDate.setText("Version: 1.0, Built on:"+ SystemUpdateDT);
 
             //Check for Internet connectivity
-            networkAvailable = Connection.haveNetworkConnection(LoginActivity.this);
+            networkAvailable = Connection.haveNetworkConnection(LoginActivity_07112018.this);
+
 
             //Rebuild Database
             String TotalTab = C.ReturnSingleValue("SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name != 'android_metadata' AND name != 'sqlite_sequence'");
 
             if(Integer.valueOf(TotalTab) == 0)
             {
+
                 if (networkAvailable)
                 {
                     //Call Setting Form
@@ -155,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Connection.MessageBox(LoginActivity.this,"Internet connection is not available for building initial database.");
+                    Connection.MessageBox(LoginActivity_07112018.this,"Internet connection is not available for building initial database.");
                     return;
                 }
             }
@@ -166,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             sp.save(this,"deviceid",UniqueID);
 
             //**************************************************************************************
+
             if (networkAvailable)
             {
                 Intent syncService = new Intent(this, Sync_Service.class);
@@ -173,17 +115,20 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             //Prepare Index Table for Data Sync: 26 Aug 2018
-            /*String IndexSQL = "Insert into sync_index_id(DeviceID,TableName,indexid) Select '"+ UniqueID +"',t.TableName,'' indexid from DatabaseTab t\n" +
+            String IndexSQL = "Insert into sync_index_id(DeviceID,TableName,indexid) Select '"+ UniqueID +"',t.TableName,'' indexid from DatabaseTab t\n" +
                     "where Sync_Download='Y' and not exists(select * from sync_index_id where TableName=t.TableName)";
             try {
                 C.SaveData(IndexSQL);
             }catch (Exception ex){
 
-            }*/
+            }
 
             //**************************************************************************************
+
             uid.setAdapter(C.getArrayAdapter("select UserId||'-'||UserName User from DataCollector order by UserName"));
             String[] CL = uid.getSelectedItem().toString().split("-");
+            //uid.setSelection(Global.SpinnerItemPosition(uid,CL[0].length(),C.ReturnSingleValue("Select UserId from LastLogin")));
+
 
             /*Button btnClose=(Button)findViewById(R.id.btnClose);
             btnClose.setOnClickListener(new View.OnClickListener() {
@@ -194,17 +139,19 @@ public class LoginActivity extends AppCompatActivity {
             });*/
 
             //Login -----------------------------------------------------------------------
+
+
             Button loginButton = (Button) findViewById(R.id.btnLogin);
             loginButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     try
                     {
                         String[] U = Connection.split(uid.getSelectedItem().toString(),'-');
-                        sp.save(LoginActivity.this,"userid",U[0]);
+                        sp.save(LoginActivity_07112018.this,"userid",U[0]);
 
                         if (!C.Existence("Select * from DataCollector where UserId='" + U[0] + "' and Pass='" + pass.getText().toString() + "'"))
                         {
-                            Connection.MessageBox(LoginActivity.this,"This is not a valid user id or password");
+                            Connection.MessageBox(LoginActivity_07112018.this,"This is not a valid user id or password");
                             return;
                         }
 
@@ -223,7 +170,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             //Check for New Version
                             if (!UpdateDT.equals(SystemUpdateDT)) {
-                                LoginActivity.SystemDownload d = new LoginActivity.SystemDownload();
+                                SystemDownload d = new SystemDownload();
                                 d.setContext(getApplicationContext());
                                 d.execute(Global.UpdatedSystem);
                             }
@@ -232,12 +179,12 @@ public class LoginActivity extends AppCompatActivity {
                                 //check for system date
                                 if(ServerDate.equals(Global.TodaysDateforCheck())==false)
                                 {
-                                    Connection.MessageBox(LoginActivity.this, "System date is incorrect ["+ Global.DateNowDMY() +"]");
+                                    Connection.MessageBox(LoginActivity_07112018.this, "System date is incorrect ["+ Global.DateNowDMY() +"]");
                                     startActivity(new Intent(android.provider.Settings.ACTION_DATE_SETTINGS));
                                     return;
                                 }
 
-                                final ProgressDialog progDailog = ProgressDialog.show(LoginActivity.this, "", "Please Wait . . .", true);
+                                final ProgressDialog progDailog = ProgressDialog.show(LoginActivity_07112018.this, "", "Please Wait . . .", true);
 
                                 new Thread() {
                                     public void run() {
@@ -255,7 +202,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            final ProgressDialog progDailog = ProgressDialog.show(LoginActivity.this, "", "Please Wait . . .", true);
+                            final ProgressDialog progDailog = ProgressDialog.show(LoginActivity_07112018.this, "", "Please Wait . . .", true);
 
                             new Thread() {
                                 public void run() {
@@ -275,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         //Connection.MessageBox(LoginActivity.this, ex.getMessage());
                         //return;
-                        final ProgressDialog progDailog = ProgressDialog.show(LoginActivity.this, "", "Please Wait . . .", true);
+                        final ProgressDialog progDailog = ProgressDialog.show(LoginActivity_07112018.this, "", "Please Wait . . .", true);
 
                         new Thread() {
                             public void run() {
@@ -295,26 +242,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         catch(Exception ex)
         {
-            Connection.MessageBox(LoginActivity.this, ex.getMessage());
+            Connection.MessageBox(LoginActivity_07112018.this, ex.getMessage());
         }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        try {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-            this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);  // Removes notification bar
-
-            setContentView(R.layout.login_activity);
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-            checkPermission();
-
-        } catch (Exception ex) {
-            Connection.MessageBox(LoginActivity.this, ex.getMessage());
-        }
-    }
 
     //Install application
     private void InstallApplication()
@@ -338,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            dialog = new ProgressDialog(LoginActivity.this);
+            dialog = new ProgressDialog(LoginActivity_07112018.this);
             dialog.setMessage("Downloading Updated System...");
             dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             dialog.setCancelable(false);
@@ -406,4 +337,6 @@ public class LoginActivity extends AppCompatActivity {
             return null;
         }
     }
+
 }
+

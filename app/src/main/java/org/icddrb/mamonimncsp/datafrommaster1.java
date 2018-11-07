@@ -1,4 +1,4 @@
-package org.icddrb.standard;
+package org.icddrb.mamonimncsp;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
